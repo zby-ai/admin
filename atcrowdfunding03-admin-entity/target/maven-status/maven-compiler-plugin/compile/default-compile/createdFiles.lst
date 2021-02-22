@@ -1,8 +1,10 @@
 com\atguigu\atcrowdfunding\entity\AdminExample$GeneratedCriteria.class
-com\atguigu\atcrowdfunding\entity\Address.class
 com\atguigu\atcrowdfunding\entity\AdminExample$Criterion.class
+com\atguigu\atcrowdfunding\entity\RoleExample.class
 com\atguigu\atcrowdfunding\entity\AdminExample.class
+com\atguigu\atcrowdfunding\entity\RoleExample$GeneratedCriteria.class
 com\atguigu\atcrowdfunding\entity\AdminExample$Criteria.class
-com\atguigu\atcrowdfunding\entity\Phone.class
-com\atguigu\atcrowdfunding\entity\Student.class
+com\atguigu\atcrowdfunding\entity\Role.class
+com\atguigu\atcrowdfunding\entity\RoleExample$Criteria.class
+com\atguigu\atcrowdfunding\entity\RoleExample$Criterion.class
 com\atguigu\atcrowdfunding\entity\Admin.class

@@ -41,7 +41,7 @@
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <ol class="breadcrumb">
                 <li><a href="#">首页</a></li>
-                <li><a href="#">数据列表</a></li>
+                <li><a href="#" id="a_list">数据列表</a></li>
                 <li class="active">修改</li>
             </ol>
             <div class="panel panel-default">
@@ -105,6 +105,13 @@
 
 <script type="text/javascript">
     <%@include file="../../common/main-foot-javascript.jsp"%>
+
+    $(function () {
+        $("#a_list").click(function () {
+            window.history.back();
+            return false;
+        });
+    });
 </script>
 </body>
 </html>

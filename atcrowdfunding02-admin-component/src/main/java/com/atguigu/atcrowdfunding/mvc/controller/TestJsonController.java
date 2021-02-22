@@ -3,6 +3,7 @@ package com.atguigu.atcrowdfunding.mvc.controller;
 import com.atguigu.atcrowdfunding.utils.ResultSetEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -21,9 +22,9 @@ public class TestJsonController {
         return ResultSetEntity.succeedNoData();
     }
     @GetMapping("/two")
-    public ResultSetEntity testJsonTwo(){
-        int i = 10/0;
-        return ResultSetEntity.succeedNoData();
+    public String testJsonTwo(HttpServletRequest request){
+        String sss = request.getSession().getServletContext().getRealPath("sss");
+        return sss;
     }
 
 }

@@ -1,5 +1,7 @@
 package com.atguigu.atcrowdfunding.utils;
 
+import javax.xml.crypto.Data;
+
 /**
  * @author zbystart
  * @create 2021-02-06 16:12
@@ -27,8 +29,8 @@ public class ResultSetEntity<T> {
         return new ResultSetEntity<E>(FAILURE,null,null);
     }
 
-    public static <E> ResultSetEntity<E> succeedYesData(String mssage){
-        return new ResultSetEntity<E>(SUCCEED,mssage,null);
+    public static <E> ResultSetEntity<E> succeedYesData(String mssage,E data){
+        return new ResultSetEntity<E>(SUCCEED,mssage,data);
     }
     public static <E> ResultSetEntity<E> failureYesData(String mssage){
         return new ResultSetEntity<E>(FAILURE,mssage,null);

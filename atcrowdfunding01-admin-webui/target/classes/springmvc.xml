@@ -17,6 +17,7 @@
     <mvc:view-controller path="/admin/to/role/page" view-name="admin/role"/>
     <mv:view-controller path="/admin/to/add/page" view-name="admin/add"/>
     <mvc:view-controller path="/admin/to/update/page" view-name="admin/edit"/>
+    <mvc:view-controller path="/admin/to/menu/page" view-name="admin/menu"/>
     
     <mvc:resources mapping="/bootstrap/**" location="/bootstrap/"/>
     <mvc:resources mapping="/css/**" location="/css/"/>
