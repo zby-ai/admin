@@ -14,6 +14,8 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 
 /**
  * 自定义异常处理器
@@ -57,16 +59,22 @@ public class CrowdExceptionResolver {
         return modelAndView;
     }
 
-    @ExceptionHandler(CrowdAdminLoginException.class)
-    public ModelAndView arithmeticExceptionHanlder(CrowdAdminLoginException exception,
+    @ExceptionHandler(Exception.class)
+    public ModelAndView arithmeticExceptionHanlder(Exception exception,
                                                    HttpServletRequest request,
                                                    HttpServletResponse response) throws IOException {
-        String viewName = "admin/admin-login";
+        String viewName = "redirect:/admin/to/error/page";
+
+        // 不用再一次编码，只要把参数放到ModelAndView对象中，springmvc就会自动将参数编码并作为请求重定向的参数
+//        String massage = URLEncoder.encode(exception.getMessage(), "utf-8");
+//        viewName = viewName + "?" + CrowdAdminConstant.EXCEPTION_KEY + "=" + massage;
+
         ModelAndView modelAndView = commonExceptionHanlder(viewName, exception, request, response);
-        if (modelAndView != null) {
-            String loginAcct = "loginAcct";
-            modelAndView.addObject(loginAcct,request.getParameter(loginAcct));
-        }
+
+//        if (modelAndView != null) {
+//            String loginAcct = "loginAcct";
+//            modelAndView.addObject(loginAcct,request.getParameter(loginAcct));
+//        }
         return modelAndView;
     }
 
@@ -89,9 +97,8 @@ public class CrowdExceptionResolver {
                                                 HttpServletResponse response) throws IOException {
 
         boolean type = CrowdUtils.judgeRequestType(request);
-        System.out.println(type);
+//        System.out.println(type);
         if (type){
-
             ResultSetEntity<Object> resultSetEntity = ResultSetEntity.failureYesData(exception.getMessage());
             Gson gson = new Gson();
             String jsonString = gson.toJson(resultSetEntity);
@@ -99,7 +106,7 @@ public class CrowdExceptionResolver {
             return null;
         }
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject(CrowdAdminConstant.EXCEPTION_KEY,exception);
+        modelAndView.addObject(CrowdAdminConstant.EXCEPTION_KEY,exception.getMessage());
         modelAndView.setViewName(viewName);
         return modelAndView;
     }

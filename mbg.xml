@@ -29,7 +29,7 @@
 	targetPackage="test.model"：目标包名
 	targetProject="\MBGTestProject\src"：目标工程
 	-->
-    <javaModelGenerator targetPackage="com.atguigu.atcrowdfunding.entity"
+    <javaModelGenerator targetPackage="com.atguigu.atcrowdfunding.entity.po"
     		targetProject=".\atcrowdfunding04-common-reverse\src\main\java">
       <property name="enableSubPackages" value="true" />
       <property name="trimStrings" value="true" />
@@ -48,6 +48,6 @@
     </javaClientGenerator>
 
 	<!-- 指定要逆向分析哪些表：根据表要创建javaBean -->
-    <table tableName="t_menu" domainObjectName="Menu"></table>
+    <table tableName="t_member" domainObjectName="Member"></table>
   </context>
 </generatorConfiguration>

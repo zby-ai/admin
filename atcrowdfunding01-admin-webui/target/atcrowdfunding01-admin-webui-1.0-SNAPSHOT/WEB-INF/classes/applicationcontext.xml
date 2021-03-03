@@ -5,9 +5,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
     <!--开启组件扫描-->
-    <context:component-scan base-package="com.atguigu.atcrowdfunding">
-        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
-    </context:component-scan>
+    <context:component-scan base-package="com.atguigu.atcrowdfunding.service"></context:component-scan>
     <!--导入外部属性文件-->
     <context:property-placeholder location="classpath:jdbc.properties"/>
     <!--创建数据源-->
@@ -28,6 +26,7 @@
         <!-- basePackage:对指定包下所有的mapper接口进行自动扫描,创建代理实现类加入到ioc容器中 -->
         <property name="basePackage" value="com.atguigu.atcrowdfunding.mapper"></property>
     </bean>
+    <bean id="bCryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></bean>
     <!--创建事务管理器-->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource"/>

@@ -1,7 +1,5 @@
 package com.atguigu.atcrowdfunding;
 
-import com.atguigu.atcrowdfunding.entity.Role;
-import com.atguigu.atcrowdfunding.mapper.RoleMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

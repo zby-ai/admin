@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,6 +33,9 @@ public class AdminServiceImpl implements AdminService {
     @Autowired
     private AdminMapper adminMapper;
 
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
 
     private static final Logger logger = LoggerFactory.getLogger(AdminServiceImpl.class);
 
@@ -44,7 +48,9 @@ public class AdminServiceImpl implements AdminService {
     public void saveAdmin(Admin admin) {
         //对密码加密
         String userPswd = admin.getUserPswd();
-        admin.setUserPswd(CrowdUtils.md5(userPswd));
+//        admin.setUserPswd(CrowdUtils.md5(userPswd));;
+        String encode = bCryptPasswordEncoder.encode(userPswd);
+        admin.setUserPswd(encode);
 
         //创建时间
         Date date = new Date();
@@ -178,6 +184,21 @@ public class AdminServiceImpl implements AdminService {
         adminMapper.deleteByExample(adminExample);
 
 //        adminMapper.batchLogicDeleteAdminById(adminIds);
+    }
+
+    /**
+     * 根据用户名查找用户
+     * @param username
+     * @return
+     */
+    @Override
+    public Admin getAdminByUsername(String username) {
+        AdminExample adminExample = new AdminExample();
+        AdminExample.Criteria criteria = adminExample.createCriteria();
+        criteria.andLoginAcctEqualTo(username);
+        List<Admin> admins = adminMapper.selectByExample(adminExample);
+        Admin admin = admins.get(0);
+        return admin;
     }
 
 }

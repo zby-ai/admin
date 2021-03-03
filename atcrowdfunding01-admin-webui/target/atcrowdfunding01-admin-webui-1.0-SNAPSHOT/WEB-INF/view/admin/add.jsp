@@ -44,8 +44,9 @@
                 <div class="panel-heading">表单数据<div style="float:right;cursor:pointer;" data-toggle="modal" data-target="#myModal"><i class="glyphicon glyphicon-question-sign"></i></div></div>
                 <div class="panel-body">
                     <form role="form" action="admin/add" method="post">
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 <%--                        <input type="hidden" name="pages" value="${requestScope.pages}">--%>
-                        <span>${requestScope.exception.message}</span>
+                        <span>${requestScope.exception}</span>
                         <div class="form-group">
                             <label for="exampleInputPassword1">登陆账号</label>
                             <input type="text" name="loginAcct" class="form-control" id="exampleInputPassword1" placeholder="请输入登陆账号">

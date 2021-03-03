@@ -28,14 +28,15 @@ public class RoleServiceImpl implements RoleService {
 
     /**
      * 查询数据
+     *
      * @param pageNum
      * @param pageSize
      * @param queryCondition
      * @return
      */
     @Override
-    public PageInfo<Role> getRoleList(Integer pageNum, Integer pageSize, Integer pageFootCount,String queryCondition) {
-        PageHelper.startPage(pageNum,pageSize);
+    public PageInfo<Role> getRoleList(Integer pageNum, Integer pageSize, Integer pageFootCount, String queryCondition) {
+        PageHelper.startPage(pageNum, pageSize);
         List<Role> roles = null;
         PageInfo<Role> pageInfo = null;
         // 带有条件的查询
@@ -48,18 +49,19 @@ public class RoleServiceImpl implements RoleService {
             if (roles == null || roles.size() == 0) {
                 return null;
             }
-        }else {
+        } else {
             // 不带条件的查询
 //            roles = roleMapper.selectByExample(new RoleExample());
             roles = roleMapper.selectRoleListAndOrder();
         }
 
-        pageInfo = new PageInfo<>(roles,pageFootCount);
+        pageInfo = new PageInfo<>(roles, pageFootCount);
         return pageInfo;
     }
 
     /**
      * 删除数据
+     *
      * @param roleId
      */
     @Override
@@ -69,6 +71,7 @@ public class RoleServiceImpl implements RoleService {
 
     /**
      * 更新数据
+     *
      * @param role
      */
     @Override
@@ -85,6 +88,7 @@ public class RoleServiceImpl implements RoleService {
 
     /**
      * 添加数据
+     *
      * @param role
      */
     @Override
@@ -100,6 +104,7 @@ public class RoleServiceImpl implements RoleService {
 
     /**
      * 批量删除
+     *
      * @param roleIds
      */
     @Override
@@ -112,5 +117,42 @@ public class RoleServiceImpl implements RoleService {
         }
         roleExample.createCriteria().andIdIn(arrayList);
         roleMapper.deleteByExample(roleExample);
+    }
+
+    /**
+     * 查询用户拥有的角色
+     * @param adminId
+     * @return
+     */
+    @Override
+    public List<Role> getAdminAuthorityRoleByIdIsYes(Integer adminId) {
+        return roleMapper.selectAdminAuthorityRoleByIdIsYes(adminId);
+    }
+
+    /**
+     * 查询用户没有拥有的角色
+     * @param adminId
+     * @return
+     */
+    @Override
+    public List<Role> getAdminAuthorityRoleByIdIsNo(Integer adminId) {
+        return roleMapper.selectAdminAuthorityRoleByIdIsNo(adminId);
+    }
+
+    /**
+     * 删除分配的角色
+     * @param adminId
+     * @param roleIds
+     */
+    @Override
+    public void removeAdminRoleByAdminIdAndRoleId(Integer adminId, List<Integer> roleIds) {
+        for (Integer roleId : roleIds) {
+            roleMapper.deleteAdminRoleByAdminIdAndRoleId(adminId,roleId);
+        }
+    }
+
+    @Override
+    public void saveAdminRole(Integer adminId, List<Integer> roleIds) {
+        roleMapper.insertAdminRole(adminId,roleIds);
     }
 }

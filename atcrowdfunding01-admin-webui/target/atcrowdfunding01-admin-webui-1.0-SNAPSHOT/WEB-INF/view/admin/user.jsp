@@ -106,6 +106,15 @@
                 }
             });
 
+            /**
+             * 获取已分配的角色
+             */
+            $("button[button_type=button_role_admin]").click(function () {
+               var adminId =  $(this).attr("admin_id");
+               var pageNum = $("a[page]").attr("page");
+               var querycondition = $("a[page]").attr("querycondition");
+                window.location = "admin/authority/role/" + adminId + "?pageNum=" + pageNum + "&querycondition=" + querycondition;
+            });
 
 
             function commonly_used_function (path,adminId) {

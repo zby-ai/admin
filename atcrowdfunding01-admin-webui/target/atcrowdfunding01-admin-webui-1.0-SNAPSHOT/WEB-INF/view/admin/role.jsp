@@ -12,7 +12,9 @@
     <%@include file="../../common/base-head.jsp" %>
     <%@include file="../../common/main-head.jsp" %>
     <%@include file="../../common/main-style.jsp" %>
-
+    <link rel="stylesheet" href="ztree/zTreeStyle.css"/>
+    <script type="text/javascript" src="ztree/jquery.ztree.all-3.5.min.js"></script>
+    <script type="text/javascript" src="crowd/auth.js"></script>
     <script type="text/javascript">
         <%@include file="../../common/main-foot-javascript.jsp"%>
         $("tbody .btn-success").click(function(){
@@ -158,7 +160,95 @@
                 }
             });
 
+            // 打开权限分配模态框
+            $("body").on("click","button[button_type=button_auth_role]",function () {
+
+                // 获取树形权限数据
+                var result = ajax_get_auth_tree();
+
+                if (result.status == 200) {
+                    getAuthTree(result.responseJSON.data);
+                } else {
+                    layer.msg("服务器查询错误:" + result.statusText +  ",状态码：" + result.status);
+                    return;
+                }
+
+                // 回显数据
+                var roleId = $(this).attr("role_id");
+                result = ajax_get_role_auth(roleId);
+                if (result.status == 200) {
+                    getShowAuth(result.responseJSON.data);
+                } else {
+                    layer.msg("服务器查询错误:" + result.statusText +  ",状态码：" + result.status);
+                    return;
+                }
+                window.roleId = $(this).attr("role_id");
+                // 打开模态框
+                $("#menuAuthModal").modal("show");
+            });
+
+            $("#authSaveBtn").click(function () {
+                var authIdArr = getCheckedAuth();
+                var json = {
+                    "authIdArr" : authIdArr
+                };
+                var jsonString =  JSON.stringify(json);
+                ajax_update_role_auth(jsonString,window.roleId);
+                $("#menuAuthModal").modal("hide");
+            });
+
         });
+
+        /**
+         * 更新角色的权限
+         */
+        function ajax_update_role_auth(jsonString,roleId) {
+            $.ajax({
+                "url" : "admin/auth/put/roleAuth/" + roleId,
+                "type" : "put",
+                "data" : jsonString,
+                "contentType" : "application/json;charset=UTF-8",
+                "dataType" : "json",
+                "success" : function (result) {
+                    if (result.code == "SUCCEED") {
+                        layer.msg("修改成功");
+                    } else {
+                        layer.msg(result.mssage);
+                    }
+                },
+                "error" : function (result) {
+                    layer.msg("服务器处理失败! 状态码:" + result.status + " " + ",错误信息:" + result.statusText);
+                }
+
+            });
+
+        }
+
+        /**
+         * 获取权限树
+         */
+        function ajax_get_auth_tree() {
+            var result = $.ajax({
+                "url" : "admin/auth/get/list",
+                "type" : "get",
+                "dataType" : "json",
+                "async" : false
+            });
+           return result;
+        }
+
+        /**
+         * 获取已有的权限信息
+         */
+        function ajax_get_role_auth(roleId) {
+            var result = $.ajax({
+                "url" : "admin/auth/get/roleAuth/" + roleId,
+                "type" : "get",
+                "dataType" : "json",
+                "async" : false
+            });
+            return result;
+        }
 
         /**
          * 查询数据
@@ -182,6 +272,9 @@
                     }else {
                         if (result.code == "404") {
                             information(result.mssage);
+                        }
+                        if (result.code == "FAILURE") {
+                            layer.msg(result.mssage);
                         }
                     }
                 },
@@ -302,7 +395,7 @@
                 $(tr).append($(td).text("" + (i + 1)))
                      .append($(td).append(checkbox))
                      .append($(td).text("" + dataList[i].name))
-                     .append($(td).append($("<button type='button' class='btn btn-success btn-xs'><i class=' glyphicon glyphicon-check'></i></button>"))
+                     .append($(td).append($("<button type='button' button_type='button_auth_role' role_id='"+ dataList[i].id +"' class='btn btn-success btn-xs'><i class=' glyphicon glyphicon-check'></i></button>"))
                                   .append($("<button type='button' button_type='button_update_role' role_id='"+ dataList[i].id +"'   class='btn btn-primary btn-xs'><i class=' glyphicon glyphicon-pencil'></i></button>"))
                                   .append($("<button type='button' button_type='button_delete_role_by_id' role_id='"+ dataList[i].id +"' class='btn btn-danger btn-xs'><i class=' glyphicon glyphicon-remove'></i></button>"))
                             ).appendTo($("tbody"));
@@ -356,5 +449,6 @@
     <%@include file="../../common/main-list-role.jsp" %>
     <%@include file="../../common/modal-role-add.jsp"%>
     <%@include file="../../common/modal-role-edit.jsp"%>
+    <%@include file="../../common/modal-role-auth.jsp"%>
 </body>
 </html>

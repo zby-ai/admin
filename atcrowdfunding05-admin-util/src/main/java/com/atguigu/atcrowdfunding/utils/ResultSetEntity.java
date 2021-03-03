@@ -1,12 +1,15 @@
 package com.atguigu.atcrowdfunding.utils;
 
 import javax.xml.crypto.Data;
+import java.io.Serializable;
 
 /**
  * @author zbystart
  * @create 2021-02-06 16:12
  */
-public class ResultSetEntity<T> {
+public class ResultSetEntity<T> implements Serializable {
+    private static final long serialVersionUID = -6849794345754667710L;
+
     private static final String SUCCEED = "SUCCEED";
     private static final String FAILURE = "FAILURE";
     private String code;

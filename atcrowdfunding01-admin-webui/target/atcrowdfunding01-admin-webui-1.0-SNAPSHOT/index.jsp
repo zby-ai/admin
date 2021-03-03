@@ -3,7 +3,7 @@
 <%@include file="WEB-INF/common/base-head.jsp"%>
 <body>
 <h2>Hello World!</h2>
-<a href="admin/get/1" >go</a>
+<a href="admin/to/login/page" >go</a>
 
 <button id="btn1">Json [1,2,3]</button> <br/>
 <a href="testjson/two" >普通请求</a>

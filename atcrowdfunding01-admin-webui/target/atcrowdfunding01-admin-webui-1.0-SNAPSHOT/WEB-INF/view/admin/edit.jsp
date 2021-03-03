@@ -50,6 +50,7 @@
                         <form:form action="admin/update/${requestScope.pageMassage}" method="post" role="form" modelAttribute="admin">
                             <form:hidden path="id"/>
                             <input type="hidden" name="_method" value="PUT">
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                             <c:if test="${not empty requestScope.queryCondition}">
                                 <input type="hidden" name="queryCondition" value="${requestScope.queryCondition}">
                             </c:if>

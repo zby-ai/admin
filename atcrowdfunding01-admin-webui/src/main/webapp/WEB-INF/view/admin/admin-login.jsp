@@ -32,12 +32,14 @@
 
         <div class="container">
 
-            <form class="form-signin" role="form" action="admin/login" method="post">
+            <form class="form-signin" role="form" action="admin/do/login.html" method="post">
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
                 <h2 class="form-signin-heading"><i class="glyphicon glyphicon-log-in"></i> 管理员登录</h2>
                 <div class="form-group has-success has-feedback">
                     <p>${requestScope.exception.message}</p>
                     <p>${requestScope.loginMassage}</p>
+                    <p>${SPRING_SECURITY_LAST_EXCEPTION.message }</p>
                     <input type="text" name="loginAcct" class="form-control" id="inputSuccess4" placeholder="请输入登录账号" autofocus value="${requestScope.loginAcct}">
                     <span class="glyphicon glyphicon-user form-control-feedback"></span>
                 </div>

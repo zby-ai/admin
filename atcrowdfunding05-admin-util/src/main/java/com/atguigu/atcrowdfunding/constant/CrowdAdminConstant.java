@@ -21,4 +21,8 @@ public class CrowdAdminConstant {
     public static Integer pageSize = 5;
     public static final Integer DEFALUT_PAGEFOOTCOUNT = 10;
     public static Integer pageFootCount = DEFALUT_PAGEFOOTCOUNT;
+
+    public static final String TEMPLATE_SHORT_MESSAGE_PREFIX = "【儿童教务】您正在登录验证,验证码为：";
+    public static final String TEMPLATE_SHORT_MESSAGE_SUFFIX = " ,60s内有效,请尽快验证。";
+    public static final String TEMPLATE_CODE_PREFIX = "CODE_KEY";
 }

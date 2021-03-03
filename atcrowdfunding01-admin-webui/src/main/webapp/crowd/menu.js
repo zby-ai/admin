@@ -53,8 +53,11 @@ function myAddDiyDom(treeId, treeNode) {
 function getMenuTree() {
     var setting = {
         "view" : {
+            // 添加自定义的标签
             "addDiyDom": myAddDiyDom,
+            // 添加鼠标移入事件的回调函数
             "addHoverDom" : myAddHoverDom,
+            // 添加鼠标移出事件的回调函数
             "removeHoverDom" : myRemoveHoverDom,
         },
         "data": {
@@ -72,6 +75,7 @@ function getMenuTree() {
             if (result.code == "SUCCEED") {
                 var zNodes = result.data;
                 $(document).ready(function(){
+                    // 将数据按照树形结构显示
                     $.fn.zTree.init($("#treeDemo"), setting, zNodes);
                 });
             } else {

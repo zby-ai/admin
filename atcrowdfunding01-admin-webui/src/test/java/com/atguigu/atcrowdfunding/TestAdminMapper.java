@@ -1,8 +1,5 @@
 package com.atguigu.atcrowdfunding;
 
-import com.atguigu.atcrowdfunding.entity.Admin;
-import com.atguigu.atcrowdfunding.mapper.AdminMapper;
-import com.atguigu.atcrowdfunding.service.AdminService;
 import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;

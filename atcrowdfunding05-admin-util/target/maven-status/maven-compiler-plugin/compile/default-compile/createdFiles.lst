@@ -1,4 +1,7 @@
+com\aliyun\api\gateway\demo\util\HttpUtils$1.class
+com\aliyun\api\gateway\demo\util\HttpUtils.class
 com\atguigu\atcrowdfunding\utils\PageUtils.class
+com\atguigu\atcrowdfunding\constant\AccessPassResources.class
 com\atguigu\atcrowdfunding\exception\CrowdAdminLoginException.class
 com\atguigu\atcrowdfunding\utils\ResultSetEntity.class
 com\atguigu\atcrowdfunding\exception\CrowdMd5Exception.class

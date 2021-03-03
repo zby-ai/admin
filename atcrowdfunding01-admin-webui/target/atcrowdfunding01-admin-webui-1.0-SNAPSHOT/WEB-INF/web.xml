@@ -26,33 +26,49 @@
         <param-value>true</param-value>
       </init-param>
     </filter>
-    <!--配置请求转换过滤器,可以在post请求的基础上,根据_method参数的值来转换为put或delete请求-->
-    <filter>
-      <filter-name>HiddenHttpMethodFilter</filter-name>
-      <filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>
-    </filter>
     <filter-mapping>
-      <filter-name>CharacterEncodingFilter</filter-name>
-      <url-pattern>/*</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
-      <filter-name>HiddenHttpMethodFilter</filter-name>
-      <url-pattern>/*</url-pattern>
+        <filter-name>CharacterEncodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
     </filter-mapping>
 
-    <!--配置参数过滤器
-        ajax直接发送put请求Tomcal不会把发送过来的参数封装到map集合中，调用getParameter()不能获取到请求参数
-        HttpPutFormContentFilter是SpringMVC提供的过滤器,它会把put请求发送过来的数据封装到自己的map集合中
-            这时调用getParameter()就可以获取请求参数了
-     -->
+
+    <!--配置请求转换过滤器,可以在post请求的基础上,根据_method参数的值来转换为put或delete请求-->
     <filter>
-      <filter-name>HttpMethodFilter</filter-name>
-      <filter-class>org.springframework.web.filter.HttpPutFormContentFilter</filter-class>
+        <filter-name>HiddenHttpMethodFilter</filter-name>
+        <filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>
     </filter>
     <filter-mapping>
-      <filter-name>HttpMethodFilter</filter-name>
-      <url-pattern>/*</url-pattern>
+        <filter-name>HiddenHttpMethodFilter</filter-name>
+        <url-pattern>/*</url-pattern>
     </filter-mapping>
+
+
+    <!--配置参数过滤器
+
+    ajax直接发送put请求Tomcal不会把发送过来的参数封装到map集合中，调用getParameter()不能获取到请求参数
+    HttpPutFormContentFilter是SpringMVC提供的过滤器,它会把put请求发送过来的数据封装到自己的map集合中
+    这时调用getParameter()就可以获取请求参数了
+    -->
+    <filter>
+        <filter-name>HttpMethodFilter</filter-name>
+        <filter-class>org.springframework.web.filter.HttpPutFormContentFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>HttpMethodFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+
+    <filter>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+
     <!--配置ServletContext监听器,在ServletContext被服务器创建时加载spring的配置文件创建IOC容器-->
     <listener>
       <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>

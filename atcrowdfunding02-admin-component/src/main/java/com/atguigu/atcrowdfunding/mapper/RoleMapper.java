@@ -32,4 +32,12 @@ public interface RoleMapper {
     List<Role> selectRoleListAndOrder();
 
     List<Role> selectRoleListAndOrderByCondition(String queryCondition);
+
+    List<Role> selectAdminAuthorityRoleByIdIsYes(Integer adminId);
+
+    List<Role> selectAdminAuthorityRoleByIdIsNo(Integer adminId);
+
+    int deleteAdminRoleByAdminIdAndRoleId(@Param("adminId") Integer adminId, @Param("roleId")Integer roleId);
+
+    int insertAdminRole(@Param("adminId") Integer adminId, @Param("roleIds") List<Integer> roleIds);
 }

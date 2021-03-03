@@ -62,7 +62,7 @@
                             <td>${admin.userName}</td>
                             <td>${admin.email}</td>
                             <td>
-                                <button type="button" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></button>
+                                <button type="button" button_type="button_role_admin" admin_id="${admin.id}" class="btn btn-success btn-xs" ><i class=" glyphicon glyphicon-check"></i></button>
                             <button type="button" button_type="button_update_admin" admin_id="${admin.id}"   class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></button>
                              <button type="button" button_type="button_delete_admin_by_id" admin_id="${admin.id}" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"></i></button>
                             </td>
@@ -96,6 +96,7 @@
     <a id="update_admin_a" href=""></a>
     <form method="post" action="" id="admin_delete_by_id_form">
         <input type="hidden" name="_method" value="DELETE">
+<%--        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>--%>
     </form>
 </div>
 

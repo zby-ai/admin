@@ -18,29 +18,43 @@
     <mv:view-controller path="/admin/to/add/page" view-name="admin/add"/>
     <mvc:view-controller path="/admin/to/update/page" view-name="admin/edit"/>
     <mvc:view-controller path="/admin/to/menu/page" view-name="admin/menu"/>
+<!--    <mvc:view-controller path="/admin/to/error/page" view-name="error/system-error"/>-->
     
-    <mvc:resources mapping="/bootstrap/**" location="/bootstrap/"/>
-    <mvc:resources mapping="/css/**" location="/css/"/>
-    <mvc:resources mapping="/fonts/**" location="/fonts/"/>
-    <mvc:resources mapping="/img/**" location="/img/"/>
-    <mvc:resources mapping="/jquery/**" location="/jquery/"/>
-    <mvc:resources mapping="/layer/**" location="/layer/"/>
-    <mvc:resources mapping="/script/**" location="/script/"/>
-    
-    <mvc:interceptors>
-        <mvc:interceptor>
-            <mvc:mapping path="/**"/>
-            <mvc:exclude-mapping path="/admin/to/login/page"/>
-            <mvc:exclude-mapping path="/admin/loginout"/>
-            <mvc:exclude-mapping path="/admin/login"/>
-            <mvc:exclude-mapping path="/bootstrap/**"/>
-            <mvc:exclude-mapping path="/css/**"/>
-            <mvc:exclude-mapping path="/fonts/**"/>
-            <mvc:exclude-mapping path="/img/**"/>
-            <mvc:exclude-mapping path="/jquery/**"/>
-            <mvc:exclude-mapping path="/layer/**"/>
-            <mvc:exclude-mapping path="/script/**"/>
-            <bean class="com.atguigu.atcrowdfunding.interceptor.CrowdAdminInterceptor"/>
-        </mvc:interceptor>
-    </mvc:interceptors>
+<!--    <mvc:resources mapping="/bootstrap/**" location="/bootstrap/"/>-->
+<!--    <mvc:resources mapping="/css/**" location="/css/"/>-->
+<!--    <mvc:resources mapping="/fonts/**" location="/fonts/"/>-->
+<!--    <mvc:resources mapping="/img/**" location="/img/"/>-->
+<!--    <mvc:resources mapping="/jquery/**" location="/jquery/"/>-->
+<!--    <mvc:resources mapping="/layer/**" location="/layer/"/>-->
+<!--    <mvc:resources mapping="/script/**" location="/script/"/>-->
+<!--    -->
+<!--    <mvc:interceptors>-->
+<!--        <mvc:interceptor>-->
+<!--            <mvc:mapping path="/**"/>-->
+<!--            <mvc:exclude-mapping path="/admin/to/login/page"/>-->
+<!--            <mvc:exclude-mapping path="/admin/loginout"/>-->
+<!--            <mvc:exclude-mapping path="/admin/login"/>-->
+<!--            <mvc:exclude-mapping path="/bootstrap/**"/>-->
+<!--            <mvc:exclude-mapping path="/css/**"/>-->
+<!--            <mvc:exclude-mapping path="/fonts/**"/>-->
+<!--            <mvc:exclude-mapping path="/img/**"/>-->
+<!--            <mvc:exclude-mapping path="/jquery/**"/>-->
+<!--            <mvc:exclude-mapping path="/layer/**"/>-->
+<!--            <mvc:exclude-mapping path="/script/**"/>-->
+<!--            <bean class="com.atguigu.atcrowdfunding.interceptor.CrowdAdminInterceptor"/>-->
+<!--        </mvc:interceptor>-->
+<!--    </mvc:interceptors>-->
+
+
+    <!-- 配置基于XML的异常映射 -->
+    <bean id="simpleMappingExceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        <!-- 配置异常类型和具体视图页面的对应关系 -->
+        <property name="exceptionMappings">
+            <props>
+                <!-- key属性指定异常全类名 -->
+                <!-- 标签体中写对应的视图（这个值要拼前后缀得到具体路径） -->
+                <prop key="java.lang.Exception">system-error</prop>
+            </props>
+        </property>
+    </bean>
 </beans>

@@ -25,4 +25,5 @@ public interface AdminService {
 
     void removeBatchAdminById(String[] adminIds);
 
+    Admin getAdminByUsername(String username);
 }

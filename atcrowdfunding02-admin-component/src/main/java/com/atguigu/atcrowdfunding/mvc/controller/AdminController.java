@@ -6,6 +6,7 @@ import com.atguigu.atcrowdfunding.service.AdminService;
 import com.atguigu.atcrowdfunding.utils.PageUtils;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -52,6 +53,7 @@ public class AdminController {
      * @param model
      * @return
      */
+    @PreAuthorize("hasAnyAuthority('user:get') or hasAnyRole('经理','超级管理员')")
     @GetMapping("/userList/{pageNum}")
     public String userList(@PathVariable(value = "pageNum") Integer pageNum,
                            @RequestParam(value = "queryCondition",required = false)String queryCondition,
@@ -105,6 +107,7 @@ public class AdminController {
      * @param admin
      * @return
      */
+    @PreAuthorize("(hasRole('经理操作者') and hasAuthority('user:update')) or hasRole('超级管理员')")
     @PutMapping("/update/{page}")
     public String updateAdmin(@PathVariable("page")Integer page,
                               @RequestParam(value = "queryCondition",required = false)String queryCondition,
@@ -123,6 +126,7 @@ public class AdminController {
      * @param admin
      * @return
      */
+    @PreAuthorize("(hasRole('经理操作者') and hasAuthority('user:add')) or hasRole('超级管理员')")
     @PostMapping("/add")
     public String add(Admin admin){
         adminService.saveAdmin(admin);
@@ -143,6 +147,7 @@ public class AdminController {
      * @param queryCondition
      * @return
      */
+    @PreAuthorize("(hasRole('经理操作者') and hasAuthority('user:delete')) or hasRole('超级管理员')")
     @DeleteMapping("/delete/{pageNum}")
     public String delete(@RequestParam("adminId")String adminId,
                          @PathVariable("pageNum")Integer pageNum,
@@ -162,6 +167,8 @@ public class AdminController {
         }
         return "redirect:/admin/userList/" + pageNum;
     }
+
+
 
     /**
      * 拼接页脚

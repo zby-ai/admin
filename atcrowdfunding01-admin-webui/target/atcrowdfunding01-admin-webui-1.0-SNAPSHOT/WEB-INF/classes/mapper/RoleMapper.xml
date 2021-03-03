@@ -96,6 +96,12 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
+
+<!--  int deleteAdminRoleByAdminIdAndRoleId(@Param("adminId") Integer adminId, @Param("roleId")Integer roleId);-->
+  <delete id="deleteAdminRoleByAdminIdAndRoleId" >
+    delete from inner_admin_role where admin_id = #{adminId} and role_id = #{roleId}
+  </delete>
+
   <insert id="insert" parameterType="com.atguigu.atcrowdfunding.entity.Role" >
     insert into t_role (id, name)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=CHAR})
@@ -119,6 +125,15 @@
       </if>
     </trim>
   </insert>
+
+<!--  int insertAdminRole(@Param("adminId") Integer adminId, @Param("roleIds") List<Integer> roleIds);-->
+  <insert id="insertAdminRole" >
+    insert into inner_admin_role(admin_id,role_id) values
+    <foreach collection="roleIds" item="roleId" separator=",">
+      (#{adminId},#{roleId})
+    </foreach>
+  </insert>
+
   <select id="countByExample" parameterType="com.atguigu.atcrowdfunding.entity.RoleExample" resultType="java.lang.Integer" >
     select count(*) from t_role
     <if test="_parameter != null" >
@@ -137,6 +152,16 @@
     where name like concat('%',#{queryCondition},'%')
     order by id
   </select>
+<!--  List<Role> selectAdminAuthorityRoleByIdIsYes(Integer adminId);-->
+  <select id="selectAdminAuthorityRoleByIdIsYes" resultMap="BaseResultMap" parameterType="integer">
+    select id,`name` from t_role where id in (select role_id from inner_admin_role where admin_id = #{adminId})
+  </select>
+
+<!--  List<Role> selectAdminAuthorityRoleByIdIsNo(Integer adminId);-->
+  <select id="selectAdminAuthorityRoleByIdIsNo" resultMap="BaseResultMap" parameterType="integer">
+    select id,`name` from t_role where id not in (select role_id from inner_admin_role where admin_id = #{adminId})
+  </select>
+
   <update id="updateByExampleSelective" parameterType="map" >
     update t_role
     <set >

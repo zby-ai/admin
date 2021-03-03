@@ -21,4 +21,11 @@ public interface RoleService {
     void saveRole(Role role);
 
     void batchRemoveRoleById(String[] roleIds);
+
+    List<Role> getAdminAuthorityRoleByIdIsYes(Integer adminId);
+    List<Role> getAdminAuthorityRoleByIdIsNo(Integer adminId);
+
+    void removeAdminRoleByAdminIdAndRoleId(Integer adminId, List<Integer> roleIds);
+
+    void saveAdminRole(Integer adminId, List<Integer> roleIds);
 }
