@@ -18,7 +18,7 @@ public class CrowdAdminConstant {
     public static final String ADMIN_PAGEINFO = "pageInfo";
 
     public static final Integer DEFALUT_PAGESIZE = 5;
-    public static Integer pageSize = 5;
+    public static Integer pageSize = DEFALUT_PAGESIZE;
     public static final Integer DEFALUT_PAGEFOOTCOUNT = 10;
     public static Integer pageFootCount = DEFALUT_PAGEFOOTCOUNT;
 
